@@ -1,0 +1,94 @@
+{
+	"info": {
+		"_postman_id": "4e0b5d39-a93d-4bf0-a4be-c01e5a441ebc",
+		"name": "Eval2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25280959"
+	},
+	"item": [
+		{
+			"name": "Get data of all comapnies from url and save in db",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"urlLink\": \"https://store-0001.s3.amazonaws.com/input.csv\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Companies by rank of a sector",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/companies?sector=Retail",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"companies"
+					],
+					"query": [
+						{
+							"key": "sector",
+							"value": "Retail"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Error handling when no company reterieved",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/companies?sector=Retaasdaf",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"companies"
+					],
+					"query": [
+						{
+							"key": "sector",
+							"value": "Retaasdaf"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
