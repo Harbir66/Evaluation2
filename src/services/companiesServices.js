@@ -1,6 +1,7 @@
 // const scoreUtils = require('../utils/scoreUtils');
 const database = require('../../database/models');
 const companies = database.companies;
+const { HTTPError } = require('../../errors/customError');
 // const axiosUtils = require('../utils/axiosUtils');
 
 const getCompaniesDataBySector = async (sector) => {
@@ -25,8 +26,8 @@ const getCompaniesDataBySector = async (sector) => {
     rank++;
     return companyData;
   });
-  //   if (companiesData.length === 0)
-  //     throw new HTTPError(404, 'No companies found for this sector');
+  if (companiesData.length === 0)
+    throw new HTTPError(404, 'No companies found for this sector');
   return companiesData;
 };
 
