@@ -3,7 +3,7 @@ const {
   calculateScore,
 } = require('../../src/utils/scoreUtils');
 
-describe('Tests for Utils', () => {
+describe('Tests for Score Utils', () => {
   describe('Tests for calculateScore', () => {
     it('should return correct score when correct data is passed', () => {
       const data = [
