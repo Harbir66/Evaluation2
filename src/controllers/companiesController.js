@@ -4,6 +4,7 @@ const { HTTPError } = require('../../errors/customError');
 const getCompaniesBySector = async (req, res) => {
   try {
     const { sector } = req.query;
+    console.log(sector);
     const companies = await companiesServices.getCompaniesDataBySector(sector);
     res.status(200).json(companies);
   } catch (err) {
