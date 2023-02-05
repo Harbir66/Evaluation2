@@ -89,6 +89,56 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Update info",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"ceoName\":\"harbir s\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/companies/95b5a067-808a-44a9-a490-b4ef8a045f61",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"companies",
+						"95b5a067-808a-44a9-a490-b4ef8a045f61"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all companies",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/company",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"company"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
