@@ -2,23 +2,25 @@ const scoreUtils = require('../utils/scoreUtils');
 const database = require('../../database/models');
 const companies = database.companies;
 const axiosUtils = require('../utils/axiosUtils');
+const { HTTPError } = require('../../errors/customError');
 
-const getCompaniesData = async (urlLink) => {
+const saveCompaniesData = async (urlLink) => {
   let companiesData = await axiosUtils.getCompaniesDataByURL(urlLink);
 
   companiesData = companiesData.split('\n');
   companiesData.splice(0, 1);
 
-  const allCompanies = [];
+  let totalCompanies = 0;
   let singleCompanyData = {};
-  companiesData.forEach(async (data) => {
-    const companyId = data.split(',')[0];
-    const companySector = data.split(',')[1];
+  for (let index = 0; index < companiesData.length; index++) {
+    const companyId = companiesData[index].split(',')[0];
+    const companySector = companiesData[index].split(',')[1];
 
     const receivedData = await axiosUtils.getCompaniesDataByID(companyId);
 
     const sectorData = await axiosUtils.getSectorData(companySector);
     const score = scoreUtils.getScoreFromData(companyId, sectorData);
+
     singleCompanyData = {
       companyID: companyId,
       companyName: receivedData.name,
@@ -28,16 +30,25 @@ const getCompaniesData = async (urlLink) => {
       score: score,
       comapanySector: companySector,
     };
-
-    const createdData = companies.create({
+    companies.create({
       ...singleCompanyData,
     });
-    allCompanies.push(createdData);
-    singleCompanyData = {};
+    totalCompanies++;
+  }
+  return totalCompanies;
+};
+
+const getCompaniesData = async () => {
+  const data = await companies.findAll({
+    attributes: ['companyID', 'companyName', 'score'],
   });
-  return companiesData.length;
+  if (data === null) {
+    throw new HTTPError(404, 'No Companies Data Found');
+  }
+  return data;
 };
 
 module.exports = {
+  saveCompaniesData,
   getCompaniesData,
 };
